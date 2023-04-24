@@ -1,0 +1,17 @@
+name: Trigger Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          curl -X POST \
+          -H "Authorization: Bearer ${{secrets.DSPCH_WRKFLW}}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/Seohyoun0/projectone/actions/workflows/gcrimagepush.yml/dispatches \
+          -d '{"ref": "main"}'
